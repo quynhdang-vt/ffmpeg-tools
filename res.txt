@@ -1,0 +1,9 @@
+/Users/home/go/src/github.com/quynhdang-vt/ffmpeg-tools/tmpres/audio_00002_3_5.wav
+/Users/home/go/src/github.com/quynhdang-vt/ffmpeg-tools/tmpres/audio_00003_6_76.wav
+/Users/home/go/src/github.com/quynhdang-vt/ffmpeg-tools/tmpres/audio_00004_78_85.wav
+/Users/home/go/src/github.com/quynhdang-vt/ffmpeg-tools/tmpres/audio_00005_86_125.wav
+/Users/home/go/src/github.com/quynhdang-vt/ffmpeg-tools/tmpres/audio_00006_126_139.wav
+/Users/home/go/src/github.com/quynhdang-vt/ffmpeg-tools/tmpres/audio_00007_140_146.wav
+/Users/home/go/src/github.com/quynhdang-vt/ffmpeg-tools/tmpres/audio_00008_147_168.wav
+/Users/home/go/src/github.com/quynhdang-vt/ffmpeg-tools/tmpres/audio_00009_169_174.wav
+/Users/home/go/src/github.com/quynhdang-vt/ffmpeg-tools/tmpres/audio_00010_176_282.wav
