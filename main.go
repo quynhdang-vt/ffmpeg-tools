@@ -2,19 +2,21 @@ package main
 
 import (
 	"errors"
-	"fmt"
-	"github.com/quynhdang-vt/vt-engine-tools/model"
 	"github.com/spf13/cobra"
 )
 
+/*
+Given inputfile, --> segments into non-silence
+OUTPUT:  result file with
+      start, end, filename
+
+ */
 func main() {
-	var segmentDuration string
-	var idTag string
-	var cmdMerge = &cobra.Command{
-		Use:   "split-on-silence input_audio_file ...",
-		Short: "split-on-silence audio_file.",
-		Long: "split-on-silence:  split an audio file into segments of audios that are non-silence. The segments must have at least " +
-			"duration >= threshold (default 30 seconds ",
+	var timingFile, outputFile, outputAudioDirectory string
+	var cmdSplit = &cobra.Command{
+		Use:   "split inputfile ",
+		Short: "split inputfile ",
+		Long: "split:  split an audio file into segments of audios that are non-silence. Must give timing information about start, end. OutputFile when succeeded will contain the list of segment filenames",
 		Args: func(cmd *cobra.Command, args []string) error {
 			if len(args) < 1 {
 				return errors.New("requires at least one file")
@@ -22,21 +24,26 @@ func main() {
 			return nil
 		},
 		Run: func(cmd *cobra.Command, args []string) {
-			transcriptionOutput := model.NewEngineOutput()
-			for i, v := range args {
-				vlf, err := model.ParseVLF(v)
-				if err == nil {
-					transcriptionOutput.AddVLF(fmt.Sprintf("%s_%d", idTag, i), vlf)
+
+			for _, v := range args {
+				worker :=  Extractor  {
+					inputFile:v,
+					outputAudioDir:outputFile,
+					timingFile:timingFile,
+					outputFile:outputFile,
 				}
+				worker.Extract()
 			}
-			transcriptionOutput.Sort()
-			// output to outputFile
-			transcriptionOutput.Write(outputFile)
 		},
 	}
-	var rootCmd = &cobra.Command{Use: "ffmpeg-tools"}
-	cmdMerge.Flags().StringVarP(&segmentDuration, "duration", "d", "30", "minimum segment duration")
+	cmdSplit.Flags().StringVarP(&timingFile, "timingFile", "t", "", "timing file containing start,end")
+	cmdSplit.Flags().StringVarP(&outputFile, "output", "o", "", "output file")
+	cmdSplit.Flags().StringVarP(&outputAudioDirectory, "directory", "d", "", "directory to output audio segments")
 
-	rootCmd.AddCommand(cmdMerge)
+
+
+	var rootCmd = &cobra.Command{Use: "ffmpeg-tools"}
+
+	rootCmd.AddCommand(cmdSplit)
 	rootCmd.Execute()
 }
